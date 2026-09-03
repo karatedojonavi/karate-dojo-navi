@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { withSentryConfig } from "@sentry/nextjs";
+import { withSentryConfig } from "@sentry/nextjs/config";
 
 const nextConfig: NextConfig = {
   images: {
@@ -24,6 +24,5 @@ export default process.env.NEXT_PUBLIC_SENTRY_DSN
       silent: !process.env.CI,
       // ソースマップは SENTRY_AUTH_TOKEN がある環境(CI/Vercel)でのみアップロードされる
       widenClientFileUpload: true,
-      disableLogger: true,
     })
   : nextConfig;
