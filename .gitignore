@@ -52,3 +52,8 @@ next-env.d.ts
 
 # next typegen
 /.next-docs/
+
+# supabase (ローカル作業用)
+/supabase/.branches
+/supabase/.temp
+/.tmp/
