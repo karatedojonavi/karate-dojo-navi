@@ -1,0 +1,7 @@
+# リポジトリ内は LF に統一する(Windows / macOS の混在対策)
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary

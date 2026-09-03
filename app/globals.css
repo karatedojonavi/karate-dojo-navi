@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/*
+ * デザイントークン。
+ * メインカラーはここだけを差し替えればサイト全体に反映される(CLAUDE.md: 色は後から変更可能に)。
+ * 方針: 威圧的な黒赤中心の格闘技的配色を避け、落ち着いた藍色 + 温かみのある差し色とする。
+ */
+@theme {
+  /* メインカラー(藍) */
+  --color-brand-50: #f3f7fb;
+  --color-brand-100: #e3ecf6;
+  --color-brand-200: #c4d8ec;
+  --color-brand-300: #96b9db;
+  --color-brand-400: #6093c5;
+  --color-brand-500: #3d72ab;
+  --color-brand-600: #2d588c;
+  --color-brand-700: #264771;
+  --color-brand-800: #223c5e;
+  --color-brand-900: #1f334e;
+
+  /* 差し色(体験申込みなどの主要ボタン用の温かい色) */
+  --color-accent-50: #fdf7ef;
+  --color-accent-100: #f9ead4;
+  --color-accent-200: #f2d3a8;
+  --color-accent-300: #e9b573;
+  --color-accent-400: #de9445;
+  --color-accent-500: #c97a2b;
+  --color-accent-600: #a95f21;
+  --color-accent-700: #86491d;
+
+  /* 本文・背景 */
+  --color-ink: #1f2933;
+  --color-ink-muted: #5a6672;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f7f8fa;
+
+  /*
+   * 日本語フォントは OS 標準を使う(iOS: ヒラギノ / Android: Noto)。
+   * Webフォントを読み込まないぶんスマートフォンでの表示が速い(LCP対策)。
+   */
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+    "Noto Sans JP", "Yu Gothic UI", "Meiryo", sans-serif;
+}
+
+html {
+  /* 端末の文字サイズ設定を尊重しつつ、モバイルで読みやすい基準にする */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.75;
+}
+
+/* キーボード操作時のフォーカスを明確にする(アクセシビリティ) */
+:focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+}
