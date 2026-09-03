@@ -53,6 +53,7 @@ npx playwright install chromium
 | `npm run test:e2e` | E2Eテスト(Playwright) |
 | `npm run format` | Prettier で整形 |
 | `npm run check:supabase` | Supabase への接続確認(キー設定の確認用) |
+| `npm run check:secrets` | ビルド成果物にサーバー専用のキーが混入していないか検査(`npm run build` の後に実行) |
 
 ## ディレクトリ構成
 
