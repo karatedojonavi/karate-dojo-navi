@@ -7,3 +7,5 @@ playwright-report
 test-results
 package-lock.json
 *.md
+.tmp
+supabase/.temp

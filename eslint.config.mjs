@@ -13,6 +13,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "coverage/**",
+    // 調査用にダウンロードしたファイルを置く一時フォルダ
+    ".tmp/**",
+    "supabase/.temp/**",
     "playwright-report/**",
     "test-results/**",
     "next-env.d.ts",

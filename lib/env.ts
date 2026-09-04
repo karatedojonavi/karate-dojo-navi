@@ -12,11 +12,37 @@ function required(name: string, value: string | undefined): string {
   return value;
 }
 
+/**
+ * Supabase の接続先URLを整える。
+ *
+ * Supabase の管理画面には、プロジェクトURL(正しい値)のほかに
+ * REST・Auth・Storage の各エンドポイントURLも表示される。
+ * 後者を設定してしまうと、実際のリクエストが
+ * 「https://xxx.supabase.co/rest/v1/rest/v1/prefectures」のような二重パスになり、
+ * PGRST125「Invalid path specified in request URL」で全ページが失敗する。
+ *
+ * 設定ミスでサイト全体が止まらないよう、末尾のスラッシュとエンドポイントのパスを取り除く。
+ */
+export function normalizeSupabaseUrl(rawUrl: string): string {
+  return rawUrl
+    .trim()
+    .replace(/\/+$/, "")
+    .replace(/\/(rest|auth|storage|realtime|functions)\/v\d+$/, "")
+    .replace(/\/+$/, "");
+}
+
+/** 末尾のスラッシュを取り除く(canonical や OGP のURLが二重スラッシュにならないように) */
+export function normalizeSiteUrl(rawUrl: string): string {
+  return rawUrl.trim().replace(/\/+$/, "");
+}
+
 /** 公開して問題ない値(ブラウザにも渡る) */
 export const publicEnv = {
-  supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
-  supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL
+    ? normalizeSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL)
+    : undefined,
+  supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim(),
+  siteUrl: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   sentryDsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
 };
 
@@ -34,5 +60,5 @@ export function requireSupabasePublicEnv() {
 
 /** サーバー専用。クライアントから呼ばれた場合は server-only により import 時点で失敗する */
 export function requireServiceRoleKey(): string {
-  return required("SUPABASE_SERVICE_ROLE_KEY", process.env.SUPABASE_SERVICE_ROLE_KEY);
+  return required("SUPABASE_SERVICE_ROLE_KEY", process.env.SUPABASE_SERVICE_ROLE_KEY?.trim());
 }

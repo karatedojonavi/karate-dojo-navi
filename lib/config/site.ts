@@ -3,6 +3,8 @@
  * CLAUDE.md の方針により、サービス名・ロゴ・ドメイン・メインカラーは後から差し替え可能とする。
  * メインカラーは app/globals.css の @theme(--color-brand-*)で定義している。
  */
+import { publicEnv } from "@/lib/env";
+
 export const siteConfig = {
   /** サービス名(仮称)。変更する場合はここだけを書き換える */
   name: "空手道場ナビ",
@@ -10,7 +12,7 @@ export const siteConfig = {
   description:
     "全日本空手道連盟系の空手道場を地域・曜日・月会費・流派から検索。体験・見学の申込みもかんたん。",
   /** 本番URL。未設定時はローカル開発を想定 */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: publicEnv.siteUrl,
 
   /**
    * トップページのキャッチコピー。
