@@ -17,7 +17,9 @@
     "test:e2e:ui": "playwright test --ui",
     "check": "npm run typecheck && npm run lint && npm run test",
     "check:supabase": "node scripts/check-supabase.mjs",
-    "check:secrets": "node scripts/check-bundle-secrets.mjs"
+    "check:secrets": "node scripts/check-bundle-secrets.mjs",
+    "check:db": "node scripts/check-db.mjs",
+    "db:push": "supabase db push --db-url $SUPABASE_DB_URL"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.73.0",

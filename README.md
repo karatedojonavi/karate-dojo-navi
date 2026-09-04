@@ -54,6 +54,8 @@ npx playwright install chromium
 | `npm run format` | Prettier で整形 |
 | `npm run check:supabase` | Supabase への接続確認(キー設定の確認用) |
 | `npm run check:secrets` | ビルド成果物にサーバー専用のキーが混入していないか検査(`npm run build` の後に実行) |
+| `npm run check:db` | データベースの投入内容・検索機能・RLSの動作確認 |
+| `npm run db:push` | マイグレーションを Supabase に適用(要 `SUPABASE_DB_URL`) |
 
 ## ディレクトリ構成
 
@@ -63,5 +65,24 @@ components/   UIコンポーネント
 lib/          設定・Supabaseクライアント・共通ロジック
 e2e/          Playwright の E2E テスト
 docs/         仕様・設計ドキュメント
-supabase/     マイグレーション・seed(フェーズ1以降)
+supabase/
+  migrations/ データベースのマイグレーション(手動でのテーブル変更は禁止)
+scripts/      データ生成・動作確認用のスクリプト
+```
+
+## データベース
+
+テーブル定義とデータ投入は `supabase/migrations/` で管理しています。
+手動での変更は行わず、必ずマイグレーションファイルを追加してください。
+
+```bash
+npm run db:push      # マイグレーションを適用
+npm run check:db     # 投入内容と検索機能・RLSを確認
+```
+
+開発確認用のダミー道場15件は `is_sample_data = true` を立てています。
+本番公開前(フェーズ8)に次のSQLで一括削除します。
+
+```sql
+delete from public.dojos where is_sample_data;
 ```
